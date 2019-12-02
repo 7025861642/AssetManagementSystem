@@ -2,8 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AssetDef } from '../asset-def';
 import { AssetDefService } from '../asset-def.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Observable } from 'rxjs';
+import { AssetType } from '../asset-type';
+import { AuthService } from '../auth.service';
 
 
 
@@ -16,27 +19,43 @@ export class AssetDefComponent implements OnInit {
   assetForm: FormGroup;
   asset: AssetDef = new AssetDef();
   id: number;
+  assettypes: Observable<AssetType[]>;
 
-  constructor(private formBuilder: FormBuilder, private service: AssetDefService,private route:ActivatedRoute,
-    private toastr:ToastrService) { }
+  constructor(private formBuilder: FormBuilder, private service: AssetDefService, private route: ActivatedRoute,
+    private toastr: ToastrService, private authservice: AuthService, private router: Router) { }
 
   ngOnInit() {
     this.assetForm = this.formBuilder.group({
       ad_name: ['', Validators.compose([Validators.required])],
       ad_type_id: ['', Validators.compose([Validators.required])],
       ad_class: ['', Validators.compose([Validators.required])]
-     
+
     });
+    this.assettypes = this.service.getAssetTypes();
   }
   addAsset() {
-    this.asset.ad_name= this.assetForm.controls.ad_name.value;
+    this.asset.ad_name = this.assetForm.controls.ad_name.value;
     this.asset.ad_type_id = this.assetForm.controls.ad_type_id.value;
     this.asset.ad_class = this.assetForm.controls.ad_class.value;
- 
-    this.service.addAsset(this.asset).subscribe();
-    this.toastr.success('Added Successfully..!!', 'Success');
+
+    this.service.addAsset(this.asset).subscribe(res => {
+      if (res == 0) {
+        this.toastr.success('Added Successfully..!!', 'Success');
+
+      }
+      else {
+        this.toastr.error("Asset already exit!!!!!!");
+      }
+
+    });
+
     this.ngOnInit();
   }
+  Logout() {
+    this.authservice.logout();
+    this.router.navigateByUrl("login");
+  }
+
 
 
 }

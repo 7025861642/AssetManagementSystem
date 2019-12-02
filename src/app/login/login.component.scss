@@ -19,11 +19,11 @@
   margin-right: auto;
   margin-left: auto;
   border: 12px solid transparent;
-  border-bottom-color: rgb(15, 66, 107);
+  border-bottom-color: rgb(37, 6, 95);
 }
 
 .login-header {
-  background: rgb(12, 77, 129);
+  background: rgb(46, 11, 143);
   padding: 20px;
   font-size: 1.4em;
   font-weight: normal;
@@ -55,9 +55,9 @@
 
 .login input[type="username"],
 .login input[type="password"] {
-  background: #fff;
-  border-color: #bbb;
-  color: #555;
+  background: rgb(253, 251, 251);
+  border-color: rgb(197, 15, 15);
+  color: rgb(85, 85, 85);
 }
 
 .login input[type="username"]:focus,
@@ -73,7 +73,7 @@
 }
 
 .login input[type="submit"]:hover {
-  background: #17c;
+  background: rgb(79, 231, 186);
 }
 
 .login input[type="submit"]:focus {

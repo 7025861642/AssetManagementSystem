@@ -8,34 +8,32 @@ import { Observable } from 'rxjs';
 })
 export class AuthService {
 
-    
-  private baseUrl= 'http://localhost:50074//api';
+
+  private baseUrl = 'http://localhost:50074/api';
   formData: Login;
 
   constructor(private http: HttpClient) { }
 
-  
 
-  public Login(userInfo:Login): Observable<any>{
-    
-    localStorage.setItem('ACCESS_TOKEN',"access_token");
-    return this.http.get(this.baseUrl+'/logintbls?username='+userInfo.username+'&password='+userInfo.password);
+
+  public Login(userInfo: Login): Observable<any> {
+
+    localStorage.setItem('ACCESS_TOKEN', "access_token");
+    return this.http.get(this.baseUrl + '/Logintbls?username=' + userInfo.username + '&password=' + userInfo.password);
 
 
   }
-  
-  public isLoggedIn()
-  {
-    return localStorage.getItem('ACCESS_TOKEN')!==null;
+
+  public isLoggedIn() {
+    return localStorage.getItem('ACCESS_TOKEN') !== null;
   }
 
-  public logout()
-  {
+  public logout() {
     localStorage.removeItem('ACCESS_TOKEN');
   }
 
-  public getLoginDet(): Observable<any>{
-    return this.http.get(this.baseUrl+'/logintbls');
+  public getLoginDet(): Observable<any> {
+    return this.http.get(this.baseUrl + '/Logintbls');
   }
 
 }

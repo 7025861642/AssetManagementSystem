@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
   isSubmitted = false;
   login:Login=new Login();
   logins: Observable <Login[]>;
+  ErrorMessage:string;
 
   constructor(private authService: AuthService,
     private router: Router,
@@ -49,17 +50,19 @@ export class LoginComponent implements OnInit {
     this.authService.Login(this.login).subscribe(x=>{
       x.forEach(element => {
        this.login.usertype=element["usertype"];
+       console.log(this.login.usertype);
        if(this.login.usertype=='Admin')
        {
-         localStorage.setItem('username',this.login.username);
-         this.router.navigateByUrl('Assets');
+         localStorage.setItem('ACCESS_TOKEN',this.login.username);
+         this.router.navigateByUrl('admin');
          this.toastr.success('Login Successful..!!');
        }
        else
        {
-         localStorage.setItem('username',this.login.username);
-         this.router.navigateByUrl('Assets');
- 
+        localStorage.setItem('ACCESS_TOKEN',this.login.username);
+        this.router.navigateByUrl('purchaselist');
+         console.log(this.login.usertype);
+         this.toastr.success('login successful...');
          
        }
      },
@@ -68,6 +71,7 @@ export class LoginComponent implements OnInit {
        this.toastr.error('Invalid Username or Password');
        
      });
+     this.ErrorMessage="invalid username or password"
      console.log(this.login.usertype);  
       });
     

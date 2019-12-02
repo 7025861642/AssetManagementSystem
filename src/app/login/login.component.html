@@ -1,5 +1,5 @@
 <div class="login">
-    <h2 class="login-header">Login</h2>
+    <h2 class="login-header">Welcome</h2>
     <form [formGroup]="loginForm" class="login-container" (ngSubmit)="loginUser()">
 
         <p [ngClass]="{ 'has-error': isSubmitted && formControls.username.errors }">
@@ -21,5 +21,8 @@
         <p>
             <input type="submit" value="Login">
         </p>
+        <div *ngIf="ErrorMessage" class="alert alert-danger">
+          {{ErrorMessage}}
+        </div>
     </form>
 </div>

@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { AssetDef } from '../asset-def';
 import { AssetDefService } from '../asset-def.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-asset-list',
@@ -14,7 +15,7 @@ export class AssetListComponent implements OnInit {
   assets: Observable<AssetDef>;
   uname: string;
 
-  constructor(private assetdefService: AssetDefService, private router: Router) {
+  constructor(private assetdefService: AssetDefService, private router: Router, private authservice: AuthService) {
 
   }
 
@@ -31,6 +32,10 @@ export class AssetListComponent implements OnInit {
         console.log(data);
       })
     }
+  }
+  Logout() {
+    this.authservice.logout();
+    this.router.navigateByUrl("login");
   }
 
 }
